@@ -1,0 +1,182 @@
+{%load cart_templatetags%} {%load static%}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Material Design Bootstrap</title>
+    <!--font Awesome-->
+    <link rel="stylesheet" href="use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="{% static '../static/style/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/style/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static '../static/style/style.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body,
+        header,
+        .carousel {
+            height: 60vh;
+        }
+        
+        @media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .carousel {
+                height: 100vh;
+            }
+        }
+        
+        @media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .carousel {
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+    <!--Main layout-->
+    <main>
+        <h2>Your order summary</h2>
+        <div class="container">
+            <div class="table-responsive text-nowrap">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total price</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for orderproduct in object.products.all%}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{orderproduct.product.title}}</td>
+                            <td>{{orderproduct.product.price}}</td>
+                            <td>{{orderproduct.quantity}}</td>
+
+                            <td>
+                                {%if orderproduct.product.discount_price%} KSH{{orderproduct.get_total_discount_price}}
+                                <span class="badge badge-primary">saving KSH{{orderproduct.get_ammount_saved}}</span></h1> {%else%} KSH{{orderproduct.get_total_product_price}} {%endif%}
+                            </td>
+
+                        </tr>
+
+                        {%endfor%}
+                        <tr>
+                            <td colspan='4'><b>Order Total</b></td>
+                            <td colspan='4'><b>total</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <a class="btn btn-primary float-right ml-2" href="/">Continue shopping</a>
+                                <a class="btn btn-secondary float-right" href="/checkout/">Proceed to checkout</a>
+                            </td>
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </main>
+
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+        <!--Call to action-->
+        <div class="pt-4">
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">subscribe newsletter
+      <i class="fas fa-download ml-2"></i>
+    </a>
+            <a class="btn btn-outline-white" href="{%url 'core:index'%}" target="_blank" role="button">go home
+      <i class="fas fa-graduation-cap ml-2"></i>
+    </a>
+        </div>
+        <!--/.Call to action-->
+
+        <hr class="my-4">
+
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="https://twitter.com/MDBootstrap" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="https://dribbble.com/mdbootstrap" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="https://pinterest.com/mdbootstrap" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+
+        <!--Copyright-->
+
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+</body>
+
+</html>
